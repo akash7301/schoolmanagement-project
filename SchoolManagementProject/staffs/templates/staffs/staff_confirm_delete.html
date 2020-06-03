@@ -1,0 +1,18 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<form  method="post">
+  {% csrf_token %}
+
+  <div class="alert">
+    <p>Are you sure you want to delete "{{ object }}"</p>
+    <p>All contents attached to this staff will be deleted</p>
+  </div>
+
+  <input type="submit" class="btn btn-danger" value="Confirm">
+</form>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}
+
+  {% if object %}
+    Update {{ object }}
+    {% else %}
+    Add new student
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
+  <form  action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% include 'corecode/form_snippet.html' %}
+
+    {% if object %}
+      <input type="submit" value="Upload Record" class="btn btn-primary">
+    {% else %}
+      <input type="submit" value="Add new student" class="btn btn-primary">
+    {% endif %}
+  </form>
+{% endblock %}

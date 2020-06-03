@@ -1,0 +1,40 @@
+{% extends 'corecode/base.html' %}
+{% block title %} Staffs {% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'staff-create' %}" class="btn btn-primary"><i class="fas fa-plus"></i>New Staff</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <table id="stafftable" class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>S/N</th>
+        <th>Fullname</th>
+        <th>Gender</th>
+        <th>Mobile Phone Number</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for staff in object_list %}
+      <tr class="clickable-row" data-href="{% url 'staff-detail' staff.id %}">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ staff.surname }} {{ staff.firstname }} {{staff.other_name }}</td>
+        <td>{{ staff.get_gender_display }}</td>
+        <td>{{ staff.mobile_number }}</td>
+        <td>{{ staff.get_current_status_display }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block morejs %}
+
+<script>
+  $('#stafftable').DateTable({
+    select:false
+  });
+</script>
+{% endblock %}

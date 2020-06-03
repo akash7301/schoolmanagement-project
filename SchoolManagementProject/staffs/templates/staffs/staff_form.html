@@ -1,0 +1,24 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}
+  {% if object %}
+    Update {{ object }}
+  {% else %}
+    Add New Staff
+  {% endif %}
+{% endblock title %}
+
+{% block content %}
+
+  <form  method="post">
+    {% csrf_token %}
+    {% include 'corecode/form_snippet.html' %}
+
+    {% if object %}
+      <input type="submit" class="btn btn-primary" value="Update Record">
+    {% else %}
+      <input type="submit" class="btn btn-primary" value="Add New Staff">
+    {% endif %}
+  </form>
+  
+{% endblock content %}

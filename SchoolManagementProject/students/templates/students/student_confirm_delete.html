@@ -1,0 +1,16 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="alert">
+      <p>Are ypu sure you want to delete "{{ object }}"?</p>
+      <p>All content attached to this student will be deleted.</p>
+    </div>
+
+    <input type="submit" class="btn btn-danger" value="Confirm">
+  </form>
+{% endblock %}

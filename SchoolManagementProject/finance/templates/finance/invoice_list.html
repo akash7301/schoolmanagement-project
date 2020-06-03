@@ -1,0 +1,50 @@
+{% extends 'corecode/base.html' %}
+{% load humanize %}
+{% block title %}Invoices {% endblock %}
+
+{% block breadcrumb %}
+
+<a href="{% url 'invoice-create' %}" class="btn btn-primary">
+<i class="fas fa-plus"></i>New Invoice</a>
+<a href="{% url 'bulk-invoice' %}" class=" btn btn-primary">
+<i class="fas fa-upload"></i>Bulk Invoice</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<table id="invoicetable" class="table table-bordered table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>S/N</th>
+      <th>Invoice</th>
+      <th>Session-Term</th>
+      <th>Total Payable</th>
+      <th>Total Paid</th>
+      <th>Balance</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for invoice in object_list %}
+      <tr class="clickable-row" data-href="{% url 'invoice-detail' invoice.id %}">
+        <td>{{forloop.counter}}</td>
+        <td>{{ invoice }}</td>
+        <td>{{ invoice.session}}-{{invoice.term }}</td>
+        <td>{{ invoice.total_amount_payable | intcomma }}</td>
+        <td>{{ invoice.total_amount_paid | intcomma }}</td>
+        <td>{{ invoice.balance | intcomma }}</td>
+        <td><a href="{% url 'receipt-create' %}?invoice={{ invoice.id }}">Add New Receipt</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
+
+{% block morejs %}
+  <script>
+    $('#invoicetable').DataTable({
+      select:false
+    });
+  </script>
+{% endblock morejs %}
