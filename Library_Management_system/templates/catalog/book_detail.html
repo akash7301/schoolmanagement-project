@@ -1,0 +1,104 @@
+{% extends 'base_generic.html' %}
+{% block style %}
+  .product-title, .product-description, .price, .vote, .sizes{
+    margin-bottom:15px;
+  }
+
+  #showcase {
+  position: relative;
+  min-height: 600px;
+}
+{% endblock %}
+
+{% block content %}
+<section id="showcase" class="py-5 bg-dark">
+   <div class="primary-overlay text-primary">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-6 col-sm-12 text-center">
+                 <img src="{{ book.pic.url }}" alt="" class="img-fluid hidden-md-down">
+               </div>
+
+               <div class="col-md-6 col-sm-12 text-center">
+                 <h3 class="mt-2 pt-2">
+                   Title: {{ book.title }}
+                 </h3
+               <h4><strong>Author :</strong>{{ book.auther }}</h4>
+               <h4><strong>ISBN :</strong>{{ book.isbn }}</h4>
+               <h4><strong>Language :</strong>{{book.language}}</h4>
+               <h4></h4>
+               <h4><p><strong>Genre :</strong>
+               {% for genre in book.genre.all %}{{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                  </p>Total Copies :{{book.total_copies }}</h4>
+               <p class="lead hidden-md-down"><strong>Summary :</strong>{{ book.summary}}</p>
+                 {% if user.is_superuser %}
+                    <a class="btn btn-outline-secondary btn-lg text-white bg-success mx-4" href="{% url 'book_delete' pk=book.id %}">DELETE</a>
+                    <a class="btn btn-outline-secondary btn-lg text-white bg-success mx-4" href="{% url 'book_update' pk=book.id %}">UPDATE</a>
+                 {% endif %}
+
+                {% if book.available_copies %}
+                  <br>
+                  <h4>Number of avialable copies=<span class="text-danger my-3">{{ book.available_copies }}</spane><br></h4>
+                  <a class="btn btn-outline-secondary btn-lg text-white bg-primary my-2" href="{% url 'request_issue' pk=book.id %}">Issue Book</a>
+                {% endif %}
+                {% if rr %}
+                  <a href="{% url 'rating_update' pk=rr.id %}">Give review about book</a>
+                {% endif %}
+               </div>
+           </div
+
+    <div class="card">
+       {% if reviews %}
+         {% for r in reviews %}
+           {% if r.review is not 'none' %}
+           <div class="card-body">
+             <div class="row">
+               <div class="col-md-2">
+                 <img src="{{r.student.pic.url}}" alt="" class="rounded-circle img-fluid">
+               </div>
+               <div class="col-md-10">
+                 <p>
+                   <a class="float-left" href="{% url 'student_detail' pk=r.student.id %}"><strong>{{r.student.name }}</strong></a>
+                   <div id="{{ r.id }}">
+
+                   </div>
+                 </p>
+                 <div class="clearfix">
+                     <p>{{ r.review }}</p>
+                 </div>
+
+               </div>
+             </div>
+           </div>
+           {% endif %}
+         {% endfor %}
+         {% else %}
+         <div class="contain bg-dark text-white text-center">
+           <h4>No review yet..!</h4>
+         </div>
+       {% endif %}
+     </div>
+
+
+       </div>
+   </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+  var i= 0;
+  var a;
+  {% for r in reviews %}
+  a = document.getElementById("{{ r.id }}");
+    if (parseFloat({{ r.rating }})>parseInt({{ r.rating }}))
+    {
+      a.innerHTML = a.innerHTML + "<span class="flaot-right"><i class="text-warning fa fa-star-half-o"></i></span>"
+    }
+
+    for(i = 0; i<parseInt({{ r.rating }}); i++){
+        a.innerHTML = a.innerHTML + "<span class="flaot-right"><i class="text-warning fa fa-star-half-o"></i></span>"
+    }
+  {% endfor %}
+
+
+{% endblock %}

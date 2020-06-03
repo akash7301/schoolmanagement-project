@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: akashgift11@gmail.com
+Date: Fri, 22 May 2020 08:18:50 -0000
+Message-ID: <159013553003.6540.16222534069479298595@DESKTOP-NNML1UC>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/MQ/5gp-2bee8b96385805bdcafd/
+
+Your username, in case you’ve forgotten: akash
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------
